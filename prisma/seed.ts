@@ -46,15 +46,14 @@ const prisma = new PrismaClient();
 //   },
 // ];
 
-const user: Prisma.UserCreateInput[] = [
+const cust: Prisma.CustomerCreateInput[] = [
   {
-    email: "claude@test.com",
     name: "claude",
   },
 ];
 
 async function main() {
-  // await prisma.user.deleteMany();
+  await prisma.customer.deleteMany();
   // await prisma.employee.deleteMany();
   //   const customer = await prisma.customer.create({
   //     data: {
@@ -67,11 +66,11 @@ async function main() {
   //   const customer = await prisma.customer.findMany();
   //   console.log(customer);
 
-  for (const u of user) {
-    const newUser = await prisma.user.create({
+  for (const u of cust) {
+    const newCust = await prisma.customer.create({
       data: u,
     });
-    console.log(`user with id: ${newUser.id} was created.`);
+    console.log(`user with id: ${newCust.id} was created.`);
   }
 
   // for (const u of customerData) {

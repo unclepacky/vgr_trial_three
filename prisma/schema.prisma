@@ -10,8 +10,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+// model User {
+//   id   Int    @id @default(autoincrement())
+//   name String @unique
+// }
+
+model Customer {
+  id     Int            @id @unique @default(autoincrement())
+  name   String
+  status CustomerStatus @default(GUEST)
+  leases Lease[]
+}
+
+model Unit {
+  id   Int      @id @unique @default(autoincrement())
+  name String   @unique
+  type UnitType @default(STUDIO)
+}
+
+model Lease {
+  id Int @id @unique @default(autoincrement())
+
+  Customer   Customer? @relation(fields: [customerId], references: [id])
+  customerId Int?
+}
+
+enum UnitType {
+  STUDIO
+  SUITE
+}
+
+enum CustomerStatus {
+  GUEST
+  TENANT
+  EXTENANT
 }
